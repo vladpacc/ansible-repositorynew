@@ -1,0 +1,3 @@
+  package:
+      name: "filebeat-6.8.8-1.x86_64"
+      state: "installed"

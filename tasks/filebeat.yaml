@@ -1,0 +1,16 @@
+- name: Filebeat Installation
+  hosts: localhost
+  vars_files:
+  - package.yaml
+  become: true
+  become_method: sudo
+  user: ec2-user
+  tasks:
+  - name: Create repo
+    copy:
+      src: filebeat.repo
+      dest: /etc/yum.repos.d/
+  - name: install filebeat
+    package:
+      name: "{{package_name}}""
+      state: "{{state}}"

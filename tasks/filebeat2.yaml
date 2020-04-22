@@ -1,0 +1,17 @@
+---
+- name: Installs Filebeat
+  hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Elasticsearch repository for 6.x packages
+      get_url:
+        url: https://artifacts.elastic.co/packages/6.x/yum
+        dest: /etc/yum.repos.d/elastic.repo
+    - rpm_key:
+        state: present
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        gpgcheck: 1
+        enabled: no
+        rurefresh: yes
+        type: rpm_md

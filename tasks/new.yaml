@@ -1,0 +1,32 @@
+---
+- name: Filebeat Installation
+  hosts: localhost
+  become: true
+  become_method: sudo
+  user: ec2-user
+  tasks:
+  - name: Create repo
+    copy:
+      src: filebeat.repo
+      dest: /etc/yum.repos.d/
+
+  - name: Install filebeat
+    shell: "yum --enablerepo=elasticsearch  install filebeat -y"
+
+  - name: Enable Filebeat
+    service: 
+      name: filebeat
+      enabled: yes
+      state: started
+
+  - name: Configure Filebeat
+    copy:
+      src: source.yml.j2
+      dest: "/etc/filebeat/filebeat.yml"
+
+  - name: Restart filebeat
+    service: 
+      name: filebeat
+      enabled: yes
+      state: restarted    
+

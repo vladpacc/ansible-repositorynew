@@ -1,0 +1,30 @@
+---
+- name: Filebeat Installation
+  hosts: localhost
+  become: true
+  become_method: sudo
+  user: ec2
+  tasks:
+  - name: Create repo
+    copy:
+      src: filebeat.repo
+      dest: /etc/yum.repos.d/
+  - name: Install filebeat
+    package:
+      name: filebeat
+      state: installed
+ 
+    filebeat_dependencies:
+      - apt-transport-https
+      - gnupg
+    filebeat_package: "{{filebeat_package}}"
+    filebeat_package_state: "{{filebeat_package_state}}"
+    filebeat_config:
+      filebeat:
+        inputs:
+          - type: log
+            paths:
+              - /var/log/*.log
+              - /var/log/messages
+     
+   

@@ -5,4 +5,4 @@ group: "sg-09f9844e86a8394c0"
 count: 5
 vpc_subnet_id: "subnet-00e423833481f8b71"
 assign_public_ip: yes
-region: "us-esat-1"
+region: "us-east-1"
